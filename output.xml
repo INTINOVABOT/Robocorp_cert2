@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<robot generator="Robot 5.0.1 (Python 3.9.13 on win32)" generated="20220928 16:46:23.592" rpa="true" schemaversion="3">
+<suite id="s1" name="Tasks" source="c:\Users\saura\Documents\Certificado_2_Robocorp\tasks.robot">
+<test id="s1-t1" name="Abrimos pagina web" line="14">
+<kw name="Abrir CSV">
+<kw name="Download" library="RPA.HTTP">
+<arg>https://robotsparebinindustries.com/orders.csv</arg>
+<doc>An alias for the ``HTTP Get`` keyword.</doc>
+<msg timestamp="20220928 16:46:26.505" level="INFO">Creating a new HTTP session</msg>
+<msg timestamp="20220928 16:46:26.509" level="INFO">Creating Session using : alias=rpasession_alias.httpsrobotsparebinindustries.com, url=https://robotsparebinindustries.com, headers={},                     cookies={}, auth=None, timeout=None, proxies=None, verify=True,                     debug=0 </msg>
+<status status="PASS" starttime="20220928 16:46:26.503" endtime="20220928 16:46:27.392"/>
+</kw>
+<kw name="Read table from CSV" library="RPA.Tables">
+<var>${CSV}</var>
+<arg>./orders.csv</arg>
+<doc>Read a CSV file as a table.</doc>
+<msg timestamp="20220928 16:46:27.399" level="INFO">${CSV} = Table(columns=['Order number', 'Head', 'Body', 'Legs', 'Address'], rows=20)</msg>
+<status status="PASS" starttime="20220928 16:46:27.393" endtime="20220928 16:46:27.399"/>
+</kw>
+<for flavor="IN">
+<var>${fila}</var>
+<value>@{CSV}</value>
+<iter>
+<var name="${fila}">{'Order number': '1', 'Head': '1', 'Body': '2', 'Legs': '3', 'Address': 'Address 123'}</var>
+<kw name="Select From List By Index" library="RPA.Browser.Selenium">
+<arg>//select[contains(@id,'head')]</arg>
+<arg>${CSV}['Head']</arg>
+<doc>Selects options from selection list ``locator`` by ``indexes``.</doc>
+<msg timestamp="20220928 16:46:27.404" level="FAIL">Accessing '${CSV}['Head']' failed: ValueError: Index is not a number: 'Head'</msg>
+<status status="FAIL" starttime="20220928 16:46:27.401" endtime="20220928 16:52:23.744"/>
+</kw>
+<kw name="Click Button" library="RPA.Browser.Selenium">
+<arg>//label[@for='id-body-${CSV}['Body']']</arg>
+<doc>Clicks the button identified by ``locator``.</doc>
+<status status="NOT RUN" starttime="20220928 16:52:23.746" endtime="20220928 16:52:23.746"/>
+</kw>
+<status status="FAIL" starttime="20220928 16:46:27.401" endtime="20220928 16:52:23.747"/>
+</iter>
+<status status="FAIL" starttime="20220928 16:46:27.399" endtime="20220928 16:52:23.748"/>
+</for>
+<status status="FAIL" starttime="20220928 16:46:26.502" endtime="20220928 16:52:23.750"/>
+</kw>
+<kw name="Abrir web">
+<status status="NOT RUN" starttime="20220928 16:52:23.751" endtime="20220928 16:52:23.751"/>
+</kw>
+<status status="FAIL" starttime="20220928 16:46:26.499" endtime="20220928 16:52:23.753">Accessing '${CSV}['Head']' failed: ValueError: Index is not a number: 'Head'</status>
+</test>
+<doc>Template robot main suite.</doc>
+<status status="FAIL" starttime="20220928 16:46:23.598" endtime="20220928 16:52:23.756"/>
+</suite>
+<statistics>
+<total>
+<stat pass="0" fail="1" skip="0">All Tasks</stat>
+</total>
+<tag>
+</tag>
+<suite>
+<stat pass="0" fail="1" skip="0" id="s1" name="Tasks">Tasks</stat>
+</suite>
+</statistics>
+<errors>
+<msg timestamp="20220928 16:46:26.485" level="WARN">Environment variable `RC_JAVA_ACCESS_BRIDGE_DLL` needs to be set to absolute path of `WindowsAccessBridge-64.dll`</msg>
+</errors>
+</robot>
